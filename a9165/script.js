@@ -10,12 +10,11 @@ Instascan.Camera.getCameras().then(function(cameras) {
         console.error("No cameras found.");
     }
 }).catch(function(e) {
-    console.error(e);
+    console.error("Error: ", e);
 });
 
 // Add event listener to handle QR code scan results
 scanner.addListener('scan', function(content) {
-    // This is where the QR code content (water info) will be used
     const waterData = parseQRCode(content); // Parse the QR code content for info
 
     // Update the page with data from the QR code
@@ -28,7 +27,6 @@ scanner.addListener('scan', function(content) {
 // Function to parse QR code content
 function parseQRCode(content) {
     // Simulating parsed QR data from the code
-    // In a real scenario, this would be dynamic based on actual QR code content
     return {
         safeToDrink: content === "safe" ? "Yes 🌸" : "No 💧",
         lastCleaned: "2025-04-25 🌸",
