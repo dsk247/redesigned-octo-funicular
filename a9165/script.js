@@ -4,21 +4,19 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
 // Attempt to access the user's camera and start scanning
 Instascan.Camera.getCameras().then(function(cameras) {
     if (cameras.length > 0) {
-        // Choose the first camera and start the scanner when button is clicked
-        document.getElementById("scanButton").addEventListener('click', function() {
-            scanner.start(cameras[0]);
-        });
+        // Choose the first camera and start the scanner
+        scanner.start(cameras[0]);
     } else {
         console.error("No cameras found.");
+        alert("No cameras found. Please ensure your device has a camera.");
     }
 }).catch(function(e) {
-    console.error("Error accessing the camera: ", e);
+    console.error("Error accessing camera: ", e);
+    alert("Error accessing camera. Please check your camera settings.");
 });
 
 // Add event listener to handle QR code scan results
 scanner.addListener('scan', function(content) {
-    console.log("QR Code Scanned:", content);  // Debugging log
-
     const waterData = parseQRCode(content); // Parse the QR code content for info
 
     // Update the page with data from the QR code
@@ -28,11 +26,9 @@ scanner.addListener('scan', function(content) {
     document.getElementById('hygieneTips').innerText = "Water Hygiene Tips: " + waterData.hygieneTips;
 });
 
-// Function to parse QR code content (dummy for simulation)
+// Function to parse QR code content
 function parseQRCode(content) {
-    console.log("Parsing QR code content:", content);  // Debugging log
-
-    // Simulating parsed QR data from the code (this should match what QR contains)
+    // Simulating parsed QR data from the code
     return {
         safeToDrink: content === "safe" ? "Yes 🌸" : "No 💧",
         lastCleaned: "2025-04-25 🌸",
