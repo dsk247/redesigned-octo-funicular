@@ -87,8 +87,11 @@
             event.preventDefault();
             const username = document.getElementById('username').value;
             if (username) {
+                // Show the reporting form after sign-in
                 document.getElementById('signInForm').style.display = 'none';
                 document.getElementById('reportForm').style.display = 'block';
+            } else {
+                alert('Please enter a valid name');
             }
         });
 
@@ -99,7 +102,10 @@
             const waterQuality = document.getElementById('waterQuality').value;
 
             if (location && waterQuality) {
-                alert(`Thank you for reporting! \nLocation: ${location} \nWater Quality: ${waterQuality}`);
+                // Show confirmation alert on submission
+                alert(`Thank you for reporting!\nLocation: ${location}\nWater Quality: ${waterQuality}`);
+
+                // Reset the form fields
                 document.getElementById('location').value = '';
                 document.getElementById('waterQuality').value = '';
             } else {
@@ -109,4 +115,3 @@
     </script>
 </body>
 </html>
-
