@@ -5,87 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report Water Quality</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Leaflet.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <div class="container">
         <h1>Report Water Quality</h1>
-        <p>Enter your location to plot it on the map:</p>
-        
-        <form id="location-form">
-            <label for="location">Location:</label>
-            <input type="text" id="location" required>
-            <button type="submit">Plot on Map</button>
-        </form>
+        <p>Please provide the following information:</p>
 
-        <div id="map" style="height: 400px;"></div>
+        <form id="report-form">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required placeholder="Enter your location">
+
+            <label for="water-quality">Water Quality:</label>
+            <select id="water-quality" name="water-quality" required>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+            </select>
+
+            <button type="submit">Submit Report</button>
+        </form>
 
         <p class="info">Made by Kyra Sequeira and Sarah Park</p>
     </div>
 
-    <!-- Leaflet.js Script -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
     <script>
-        let map;
-        let marker;
+        const form = document.getElementById('report-form');
 
-        // Initialize the map centered on a default location (for example, Los Angeles)
-        function initMap() {
-            map = L.map('map').setView([34.0522, -118.2437], 10); // Coordinates of Los Angeles
-
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // Add a click listener to place a marker when the map is clicked
-            map.on('click', function (event) {
-                placeMarker(event.latlng);
-            });
-        }
-
-        // Place a marker on the map
-        function placeMarker(location) {
-            if (marker) {
-                marker.setLatLng(location); // Move existing marker
-            } else {
-                marker = L.marker(location).addTo(map); // Add new marker
-            }
-        }
-
-        // Handle form submission
-        const form = document.getElementById('location-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+
             const location = document.getElementById('location').value;
+            const waterQuality = document.getElementById('water-quality').value;
 
-            // Use OpenStreetMap Nominatim API to geocode the location
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data[0]) {
-                        const lat = data[0].lat;
-                        const lon = data[0].lon;
-                        const latlng = L.latLng(lat, lon);
+            // Example of submitting data (e.g., to a backend or console)
+            console.log(`Location: ${location}`);
+            console.log(`Water Quality: ${waterQuality}`);
 
-                        // Center map on the new location and place a marker
-                        map.setView(latlng, 13); // Zoom to a higher level for better accuracy
-                        placeMarker(latlng);
-                    } else {
-                        alert('Location not found!');
-                    }
-                })
-                .catch(error => {
-                    alert('Error retrieving location: ' + error);
-                });
+            // You can add an alert or any action after submission
+            alert('Thank you for reporting the water quality!');
+            form.reset(); // Reset the form fields after submission
         });
-
-        // Initialize map when the page loads
-        window.onload = initMap;
     </script>
 </body>
 </html>
