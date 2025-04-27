@@ -3,23 +3,6 @@ document.getElementById('water-quality').addEventListener('input', function () {
     document.getElementById('water-quality-value').innerText = `Quality: ${qualityValue}%`;
 });
 
-document.getElementById('photo').addEventListener('change', function () {
-    const file = this.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        const preview = document.createElement('img');
-        preview.src = e.target.result;
-        preview.alt = "Uploaded Photo";
-        preview.style.maxWidth = "200px";
-        document.body.appendChild(preview); // Append image preview to the page
-    };
-
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
-
 function submitReport() {
     const location = document.getElementById("location").value;
     const quality = document.getElementById("water-quality").value;
