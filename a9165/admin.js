@@ -1,27 +1,9 @@
 const correctUsername = "admin";  // Hardcoded username
 const correctPassword = "password";  // Hardcoded password
-console.log(localStorage.getItem("waterReports"));  // Check if data is being stored
 
 function adminLogin() {
     const username = document.getElementById("admin-username").value;
     const password = document.getElementById("admin-password").value;
-    if (reports.length === 0) {
-    reportsList.innerHTML = "<p>No reports available.</p>";
-} else {
-    reports.forEach((report, index) => {
-        const reportDiv = document.createElement("div");
-        reportDiv.classList.add("report");
-        reportDiv.innerHTML = `
-            <h5>Report #${index + 1}</h5>
-            <p><strong>Location:</strong> ${report.location}</p>
-            <p><strong>Quality:</strong> ${report.quality}%</p>
-            <p><strong>Status:</strong> ${report.status}</p>
-            ${report.photo ? `<p><strong>Photo:</strong> ${report.photo}</p>` : ''}
-        `;
-        reportsList.appendChild(reportDiv);
-    });
-}
-
 
     if (username === correctUsername && password === correctPassword) {
         document.getElementById("login-form").style.display = "none";  // Hide login form
@@ -42,7 +24,6 @@ function adminLogin() {
                 ${report.photo ? `<p><strong>Photo:</strong> ${report.photo}</p>` : ''}
             `;
             reportsList.appendChild(reportDiv);
-            
         });
     } else {
         alert("Invalid login credentials.");
