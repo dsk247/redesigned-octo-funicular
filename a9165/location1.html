@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Water Quality</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            color: #1E90FF;
+            margin-top: 50px;
+        }
+        .form-container {
+            margin-top: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 20px;
+            border: 2px solid #4682B4;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #1E90FF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4682B4;
+        }
+        #map {
+            height: 400px;
+            margin-top: 30px;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #4682B4;
+        }
+    </style>
+</head>
+<body>
 
+    <h1>Report Water Quality</h1>
+
+    <div class="form-container">
+        <label for="location">Enter Your Location:</label>
+        <input type="text" id="location" placeholder="e.g., New York, NY" required><br><br>
+        <button id="submit-location">Submit Location</button>
+    </div>
+
+    <div id="map"></div>
+
+    <footer>
+        <p>Made by Kyra Sequeira and Sarah Park</p>
+    </footer>
+
+    <script>
+        const map = L.map('map').setView([51.505, -0.09], 13); // Default location
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        document.getElementById('submit-location').addEventListener('click', function() {
+            const location = document.getElementById('location').value;
+            if (location) {
+                // Example coordinates, replace with geocoding API for actual location
+                const coords = [51.505, -0.09]; // Hardcoded location for now
+
+                L.marker(coords).addTo(map)
+                    .bindPopup("<b>Reported Location:</b><br>" + location)
+                    .openPopup();
+
+                map.setView(coords, 13);
+            } else {
+                alert("Please enter a location!");
+            }
+        });
+    </script>
+</body>
+</html>
