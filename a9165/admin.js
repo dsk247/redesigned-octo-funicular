@@ -1,5 +1,6 @@
 const correctUsername = "admin";  // Hardcoded username
 const correctPassword = "password";  // Hardcoded password
+console.log(localStorage.getItem("waterReports"));  // Check if data is being stored
 
 function adminLogin() {
     const username = document.getElementById("admin-username").value;
