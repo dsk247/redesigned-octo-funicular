@@ -1,91 +1,36 @@
-<link rel="stylesheet" href="style.css">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TapTag - Water Access Awareness</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quicksand:wght@500&display=swap" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!-- Instascan.js for QR Code scanning -->
-    
+    <title>Sign In</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <h1>TapTag</h1>
-        <p>Discover clean water access with a touch of elegance.</p>
-    </header>
+    <h1>Water Fountain Status Tracker</h1>
+    <h2>Sign In to Report Water Quality</h2>
 
-    <section id="tap-info" class="container">
-        <h2>Tap or Scan for Water Info</h2>
+    <!-- Sign-in Form -->
+    <form id="sign-in-form">
+        <input type="text" id="username" placeholder="Enter your name" required><br><br>
+        <button type="submit">Sign In</button>
+    </form>
 
-        <!-- Start QR code scanner -->
-      <!-- start -->
-      <div class="col">
-				<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-				<h1><a href="https://learncodeweb.com/phonegap/how-to-use-instascan-an-html5-qr-scanner/">How to use Instascan an HTML5 QR scanner</a></h1>
-				<div class="col-sm-12">
-					<video id="preview" class="p-1 border" style="width:100%;"></video>
-				</div>
-				<script type="text/javascript">
-					var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
-					scanner.addListener('scan',function(content){
-						alert(content);
-						//window.location.href=content;
-					});
-					Instascan.Camera.getCameras().then(function (cameras){
-						if(cameras.length>0){
-							scanner.start(cameras[0]);
-							$('[name="options"]').on('change',function(){
-								if($(this).val()==1){
-									if(cameras[0]!=""){
-										scanner.start(cameras[0]);
-									}else{
-										alert('No Front camera found!');
-									}
-								}else if($(this).val()==2){
-									if(cameras[1]!=""){
-										scanner.start(cameras[1]);
-									}else{
-										alert('No Back camera found!');
-									}
-								}
-							});
-						}else{
-							console.error('No cameras found.');
-							alert('No cameras found.');
-						}
-					}).catch(function(e){
-						console.error(e);
-						alert(e);
-					});
-				</script>
-				 <label class="btn btn-primary active">
-					<input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
-				  </label>
-				  <label class="btn btn-secondary">
-					<input type="radio" name="options" value="2" autocomplete="off"> Back Camera
-				  </label>
-			</div>
-      <!--  end -->
-        
-        <button id="scanButton" class="scan-button">✨ Start Scanning</button>
-
-        <div id="water-info" class="info-box">
-            <h3>Water Information</h3>
-            <p id="safeStatus">Safe to Drink: Loading...</p>
-            <p id="lastCleaned">Last Cleaned: Loading...</p>
-            <p id="nearbyAccess">Nearby Clean Water: Loading...</p>
-            <p id="hygieneTips">Water Hygiene Tips: Loading...</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 TapTag | Water Access Awareness | All Rights Reserved</p>
-    </footer>
-    
+    <script>
+        // JavaScript to handle sign-in form
+        document.getElementById('sign-in-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Capture the user's name (you can expand this for a real sign-in later)
+            const username = document.getElementById('username').value;
+            
+            if (username) {
+                // Redirect to Page 2 (location and map)
+                window.location.href = 'page2.html'; // You can replace this with your actual path
+            } else {
+                alert("Please enter your name!");
+            }
+        });
+    </script>
 </body>
 </html>
