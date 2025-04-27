@@ -35,11 +35,4 @@ function parseQRCode(content) {
         hygieneTips: "Wash hands regularly with clean water and soap 💖."
     };
 }
-kyra^
- — 
-23:44
-OG
-sarah
- — 
-23:44
-OK
+
