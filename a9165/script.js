@@ -8,11 +8,9 @@ Instascan.Camera.getCameras().then(function(cameras) {
         scanner.start(cameras[0]);
     } else {
         console.error("No cameras found.");
-        alert("No cameras found. Please ensure your device has a camera.");
     }
 }).catch(function(e) {
-    console.error("Error accessing camera: ", e);
-    alert("Error accessing camera. Please check your camera settings.");
+    console.error("Error: ", e);
 });
 
 // Add event listener to handle QR code scan results
@@ -33,6 +31,15 @@ function parseQRCode(content) {
         safeToDrink: content === "safe" ? "Yes 🌸" : "No 💧",
         lastCleaned: "2025-04-25 🌸",
         nearbyAccess: "Nearby well: 50 meters 💧",
+
         hygieneTips: "Wash hands regularly with clean water and soap 💖."
     };
 }
+kyra^
+ — 
+23:44
+OG
+sarah
+ — 
+23:44
+OK
