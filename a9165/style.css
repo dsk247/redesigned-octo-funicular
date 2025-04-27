@@ -1,69 +1,28 @@
-/* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
+    background-color: #f0f8ff; /* Light blue background */
     font-family: Arial, sans-serif;
-    background-color: #e0f7fa;
-    color: #01579b;
-    padding: 20px;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #00796b;
+    color: #007bff; /* Blue text for the header */
 }
 
-p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-
-label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    display: block;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+h2 {
+    color: #004085; /* Dark blue text for sub-headings */
 }
 
 button {
-    background-color: #00796b;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    font-size: 18px;
+    padding: 15px;
+}
+
+#report-form {
+    background-color: #ffffff; /* White background for form */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#water-quality {
     width: 100%;
-}
-
-button:hover {
-    background-color: #004d40;
-}
-
-.info {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #00796b;
-    margin-top: 20px;
 }
