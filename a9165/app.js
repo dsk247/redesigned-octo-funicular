@@ -5,15 +5,6 @@ function signIn() {
 document.getElementById('water-quality').addEventListener('input', function () {
     const qualityValue = this.value;
     document.getElementById('water-quality-value').innerText = `Quality: ${qualityValue}%`;
-
-    const slider = document.getElementById('water-quality');
-    if (qualityValue < 30) {
-        slider.style.backgroundColor = '#ff4d4d'; // Red for bad quality
-    } else if (qualityValue < 70) {
-        slider.style.backgroundColor = '#ffd700'; // Yellow for average quality
-    } else {
-        slider.style.backgroundColor = '#32cd32'; // Green for good quality
-    }
 });
 
 document.getElementById('photo').addEventListener('change', function () {
@@ -40,8 +31,12 @@ function submitReport() {
     const photo = document.getElementById("photo").files[0];
 
     if (location && quality && status) {
-        alert(`Report submitted!\nLocation: ${location}\nQuality: ${quality}%\nStatus: ${status}`);
-        // You can integrate backend logic here to save the report
+        let reports = JSON.parse(localStorage.getItem("waterReports")) || [];
+        const newReport = { location, quality, status, photo: photo ? photo.name : null };
+        reports.push(newReport);
+        localStorage.setItem("waterReports", JSON.stringify(reports));
+
+        alert("Report submitted!");
 
         // Reset form after submission
         document.getElementById("location").value = "";
