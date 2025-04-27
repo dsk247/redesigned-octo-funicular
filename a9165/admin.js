@@ -1,5 +1,5 @@
-const correctUsername = "admin";  // Set a hardcoded username
-const correctPassword = "password";  // Set a hardcoded password
+const correctUsername = "admin";  // Hardcoded username
+const correctPassword = "password";  // Hardcoded password
 
 function adminLogin() {
     const username = document.getElementById("admin-username").value;
@@ -11,7 +11,7 @@ function adminLogin() {
 
         const reports = JSON.parse(localStorage.getItem("waterReports")) || [];
         const reportsList = document.getElementById("reports-list");
-        reportsList.innerHTML = "";  // Clear any existing reports
+        reportsList.innerHTML = "";  // Clear existing reports
 
         reports.forEach((report, index) => {
             const reportDiv = document.createElement("div");
@@ -23,3 +23,9 @@ function adminLogin() {
                 <p><strong>Status:</strong> ${report.status}</p>
                 ${report.photo ? `<p><strong>Photo:</strong> ${report.photo}</p>` : ''}
             `;
+            reportsList.appendChild(reportDiv);
+        });
+    } else {
+        alert("Invalid login credentials.");
+    }
+}
