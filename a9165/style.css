@@ -3,12 +3,8 @@ body {
     font-family: Arial, sans-serif;
 }
 
-h1 {
-    color: #007bff; /* Blue text for the header */
-}
-
-h2 {
-    color: #004085; /* Dark blue text for sub-headings */
+h1, h2 {
+    color: #007bff; /* Blue text */
 }
 
 button {
@@ -16,8 +12,8 @@ button {
     padding: 15px;
 }
 
-#report-form {
-    background-color: #ffffff; /* White background for form */
+#report-form, #login-form {
+    background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
