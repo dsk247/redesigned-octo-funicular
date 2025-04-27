@@ -1,38 +1,39 @@
-// Initialize the QR code scanner
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+const sheetURL = "https://sheetdb.io/api/v1/bnxrx2avfhsob"; // <-- replace with your actual SheetDB URL
 
-// Attempt to access the user's camera and start scanning
-Instascan.Camera.getCameras().then(function(cameras) {
-    if (cameras.length > 0) {
-        // Choose the first camera and start the scanner
-        scanner.start(cameras[0]);
+// Read the current status
+fetch(sheetURL)
+  .then(response => response.json())
+  .then(data => {
+    if (data && data[0]) {
+      document.getElementById('status').innerText = `Current Status: ${data[0].status}`;
+      document.getElementById('lastUpdated').innerText = `Last Updated: ${data[0].updated_at}`;
     } else {
-        console.error("No cameras found.");
+      document.getElementById('status').innerText = "No data available.";
     }
-}).catch(function(e) {
-    console.error("Error: ", e);
+  });
+
+// Handle new reports
+document.getElementById('reportForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const report = document.getElementById('reportType').value;
+  const today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD
+
+  fetch(sheetURL, {
+    method: 'PATCH', // Update instead of create new
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      data: [
+        {
+          status: report,
+          updated_at: today
+        }
+      ]
+    })
+  }).then(() => {
+    alert('Report submitted! Thank you 💖');
+    location.reload(); // Refresh to show new status
+  });
 });
-
-// Add event listener to handle QR code scan results
-scanner.addListener('scan', function(content) {
-    const waterData = parseQRCode(content); // Parse the QR code content for info
-
-    // Update the page with data from the QR code
-    document.getElementById('safeStatus').innerText = "Safe to Drink: " + waterData.safeToDrink;
-    document.getElementById('lastCleaned').innerText = "Last Cleaned: " + waterData.lastCleaned;
-    document.getElementById('nearbyAccess').innerText = "Nearby Clean Water: " + waterData.nearbyAccess;
-    document.getElementById('hygieneTips').innerText = "Water Hygiene Tips: " + waterData.hygieneTips;
-});
-
-// Function to parse QR code content
-function parseQRCode(content) {
-    // Simulating parsed QR data from the code
-    return {
-        safeToDrink: content === "safe" ? "Yes 🌸" : "No 💧",
-        lastCleaned: "2025-04-25 🌸",
-        nearbyAccess: "Nearby well: 50 meters 💧",
-
-        hygieneTips: "Wash hands regularly with clean water and soap 💖."
-    };
-}
-
