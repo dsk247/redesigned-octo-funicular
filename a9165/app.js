@@ -1,7 +1,3 @@
-function signIn() {
-    document.getElementById("report-form").style.display = "block";  // Show the report form after sign-in
-}
-
 document.getElementById('water-quality').addEventListener('input', function () {
     const qualityValue = this.value;
     document.getElementById('water-quality-value').innerText = `Quality: ${qualityValue}%`;
