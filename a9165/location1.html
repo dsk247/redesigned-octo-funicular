@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report Water Quality</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <!-- Leaflet.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <div class="container">
@@ -23,53 +24,68 @@
         <p class="info">Made by Kyra Sequeira and Sarah Park</p>
     </div>
 
+    <!-- Leaflet.js Script -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
         let map;
         let marker;
 
+        // Initialize the map centered on a default location (for example, Los Angeles)
         function initMap() {
-            // Default map centered around a location (for example, Los Angeles)
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 34.0522, lng: -118.2437 },
-                zoom: 10,
-            });
+            map = L.map('map').setView([34.0522, -118.2437], 10); // Coordinates of Los Angeles
 
-            // Add a click listener for the map to place a marker
-            google.maps.event.addListener(map, 'click', function (event) {
-                placeMarker(event.latLng);
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add a click listener to place a marker when the map is clicked
+            map.on('click', function (event) {
+                placeMarker(event.latlng);
             });
         }
 
+        // Place a marker on the map
         function placeMarker(location) {
             if (marker) {
-                marker.setPosition(location);
+                marker.setLatLng(location); // Move existing marker
             } else {
-                marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                });
+                marker = L.marker(location).addTo(map); // Add new marker
             }
         }
 
-        // Form submission to plot the location
+        // Handle form submission
         const form = document.getElementById('location-form');
-
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const location = document.getElementById('location').value;
+
+            // Use OpenStreetMap Nominatim API to geocode the location
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
             
-            // You can use geocoding service to convert the location string to latitude and longitude
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': location }, function (results, status) {
-                if (status === 'OK') {
-                    const location = results[0].geometry.location;
-                    map.setCenter(location);
-                    placeMarker(location);
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data[0]) {
+                        const lat = data[0].lat;
+                        const lon = data[0].lon;
+                        const latlng = L.latLng(lat, lon);
+
+                        // Center map on the new location and place a marker
+                        map.setView(latlng, 13); // Zoom to a higher level for better accuracy
+                        placeMarker(latlng);
+                    } else {
+                        alert('Location not found!');
+                    }
+                })
+                .catch(error => {
+                    alert('Error retrieving location: ' + error);
+                });
         });
+
+        // Initialize map when the page loads
+        window.onload = initMap;
     </script>
 </body>
 </html>
